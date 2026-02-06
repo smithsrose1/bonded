@@ -1,14 +1,16 @@
 import { clamp } from 'lodash';
 
 class Kitty {
-    constructor(name){
-        this.name = name;
-        this.hunger = 75;
-        this.energy = 50;
-        this.thirst = 80;
-        this.cleanliness = 90;
-        this.happiness = 80;
-        isAlive = true;
+    constructor(data){
+        this.petID = data.petID;
+        this.name = data.name;
+        this.hunger = data.hunger;
+        this.energy = data.energy;
+        this.thirst = data.thirst;
+        this.cleanliness = data.cleanliness;
+        this.happiness = data.happiness;
+        this.isAlive = data.isAlive;
+        this.lastUpdated = data.lastUpdated;
     }
 
     feed() {
@@ -74,5 +76,13 @@ class Kitty {
 
     isAlive() {
         return this.hunger > 0 && this.energy > 0 && this.thirst > 0 && this.cleanliness > 0 && this.happiness > 0;
-    }   
+    }
+    
+    applyDecay() {
+        this.hunger = clamp(this.hunger - 5, 0, 100);
+        this.energy = clamp(this.energy - 5, 0, 100);
+        this.thirst = clamp(this.thirst - 5, 0, 100);
+        this.cleanliness = clamp(this.cleanliness - 5, 0, 100);
+        this.happiness = clamp(this.happiness - 5, 0, 100); 
+    }
 }
